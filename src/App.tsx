@@ -1,6 +1,12 @@
 import React, { useEffect } from 'react';
-import logo from './logo.svg';
 import './App.css';
+import { Layout } from './Layout';
+import { Routes, Route, BrowserRouter } from 'react-router-dom';
+import { Main } from './Main';
+import { Provider } from 'react-redux';
+import store from './store';
+import { Conferences } from './Conferences';
+import { MeetingResult } from './MeetingResult';
 
 function App() {
   useEffect(() => {
@@ -10,22 +16,34 @@ function App() {
   }, []);
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Provider store={store}>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Layout />}>
+            <Route
+              path="main"
+              element={<Main />}
+            />
+            <Route
+              path="conferences"
+              element={<Conferences />}
+            />
+            <Route
+              path="documents"
+              element={<></>}
+            />
+            <Route
+              path="materials"
+              element={<></>}
+            />
+            <Route
+              path="meeting_result"
+              element={<MeetingResult />}
+            />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </Provider>
   );
 }
 
